@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14070d">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+[hidden] { display: none !important; }
+</style>
+<title>Happy Birthday My Love</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Hanken+Grotesk:wght@400;500;600&family=Kalam:wght@400;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap">
+<style>
+/* Layout: a locked gift screen, then a single-column story of photos in chapters, ending on a candle to blow out. */
+:root {
+  --bg: #14070d;
+  --bg-2: #1e0b14;
+  --ink: #f7ebe1;
+  --muted: #c8a9a8;
+  --gold: #e9b24c;
+  --rose: #e0587c;
+  --line: rgba(233, 178, 76, 0.28);
+  --display: 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --hindi: 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', 'Kohinoor Devanagari', serif;
+  --body: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  padding-block: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+body.locked { overflow: hidden; height: 100%; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+#petals { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 60; }
+
+/* gate */
+.gate {
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0; inset: 0; z-index: 50; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  display: grid; place-items: center; text-align: center;
+  padding: 24px max(16px, env(safe-area-inset-left, 0px));
+  background: radial-gradient(ellipse at 50% 40%, #3a0f22 0%, var(--bg) 70%);
+  transition: opacity 0.9s ease, visibility 0.9s;
+}
+.gate.gone { opacity: 0; visibility: hidden; }
+.gate-inner { display: grid; gap: 20px; justify-items: center; max-width: 520px; }
+.eyebrow { font-size: 0.78rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin: 0; }
+.gate h1 { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.gift { width: 92px; height: 92px; position: relative; animation: bob 2.6s ease-in-out infinite; }
+.gift i { position: absolute; display: block; }
+.gift .box { left: 8px; right: 8px; bottom: 0; height: 56px; background: var(--rose); border-radius: 4px; }
+.gift .lid { left: 2px; right: 2px; bottom: 50px; height: 20px; background: #f06b8f; border-radius: 4px; }
+.gift .rib-v { left: 50%; width: 14px; margin-left: -7px; bottom: 0; height: 70px; background: var(--gold); }
+.gift .bow-l, .gift .bow-r { bottom: 68px; width: 24px; height: 18px; border: 4px solid var(--gold); border-radius: 50% 50% 0 50%; }
+.gift .bow-l { left: 20px; transform: rotate(-12deg); }
+.gift .bow-r { right: 20px; transform: scaleX(-1) rotate(-12deg); }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+.btn {
+  border: 1px solid var(--gold); background: transparent; color: var(--ink);
+  padding: 14px 34px; border-radius: 999px; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.82rem; font-weight: 600;
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+}
+.btn:hover { background: var(--gold); color: #2a0e1a; transform: translateY(-2px); }
+.hint { color: var(--muted); font-size: 0.9rem; margin: 0; }
+
+/* page */
+main { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; }
+section { padding-block: clamp(56px, 10vw, 120px); }
+
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(24px, 5vw, 64px); align-items: center; min-height: 0; padding-top: clamp(40px, 7vw, 90px); }
+.hero h2 { font-family: var(--display); font-weight: 500; font-size: clamp(3.2rem, 11vw, 7.6rem); line-height: 0.95; margin: 14px 0 18px; letter-spacing: -0.01em; text-wrap: balance; }
+.hero h2 em { color: var(--gold); font-weight: 500; }
+.hero p.lead { font-size: 1.12rem; color: var(--muted); max-width: 30ch; margin: 0 0 28px; }
+.hero-photo { position: relative; justify-self: center; width: min(100%, 440px); }
+.hero-photo img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 220px 220px 12px 12px; border: 1px solid var(--line); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55); }
+.hero-photo::after { content: ''; position: absolute; inset: -14px; border: 1px solid var(--line); border-radius: 234px 234px 24px 24px; pointer-events: none; }
+.scroll-cue { display: inline-flex; gap: 10px; align-items: center; color: var(--gold); font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; }
+
+.letter { max-width: 640px; margin: 0 auto; text-align: left; }
+.letter .eyebrow { margin-bottom: 18px; }
+.letter p { font-family: var(--display); font-size: clamp(1.35rem, 3.6vw, 1.75rem); line-height: 1.55; margin: 0 0 1.1em; }
+.letter p.sig { font-style: italic; color: var(--gold); margin-top: 1.4em; }
+.letter p.hi { font-family: var(--hindi); font-size: clamp(1.15rem, 3.2vw, 1.45rem); line-height: 1.95; }
+.letter p.greet { font-family: var(--hindi); font-style: italic; color: var(--gold); font-size: clamp(1.5rem, 4.4vw, 2rem); margin-bottom: 0.8em; }
+.letter p.sig { font-family: var(--hindi); }
+.wish { font-family: var(--hindi); white-space: pre-line; line-height: 1.7; }
+.quote { font-family: var(--display); font-style: italic; font-size: clamp(1.3rem, 3.6vw, 1.7rem); line-height: 1.45; color: var(--ink); max-width: 34ch; margin: 0; text-wrap: balance; }
+
+.chapter-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 28px; flex-wrap: wrap; }
+.chapter-head h3 { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(2rem, 6vw, 3.2rem); margin: 0; line-height: 1.05; }
+.chapter-head span { color: var(--muted); font-size: 0.95rem; }
+.wall { columns: 3; column-gap: 14px; }
+.wall figure { margin: 0 0 14px; break-inside: avoid; position: relative; overflow: hidden; border-radius: 6px; background: var(--bg-2); }
+.wall button { display: block; width: 100%; padding: 0; border: 0; background: none; }
+.wall img { width: 100%; height: auto; transition: transform 0.6s ease, filter 0.4s; }
+.wall figure:hover img { transform: scale(1.04); }
+.wall figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 28px 14px 12px; font-family: var(--display); font-style: italic; font-size: 1.2rem; background: linear-gradient(transparent, rgba(20, 7, 13, 0.85)); pointer-events: none; }
+.rv { opacity: 0.25; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.rv.in { opacity: 1; transform: none; }
+
+.finale { text-align: center; display: grid; justify-items: center; gap: 22px; }
+.finale h3 { font-family: var(--display); font-weight: 500; font-size: clamp(2.2rem, 7vw, 4.2rem); line-height: 1.05; margin: 0; text-wrap: balance; }
+.us { width: min(100%, 620px); border-radius: 8px; border: 1px solid var(--line); }
+.cake { position: relative; width: 150px; height: 130px; margin-top: 18px; }
+.cake .tier { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: var(--rose); border-radius: 10px 10px 6px 6px; }
+.cake .tier::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 18px; background: #f7ebe1; border-radius: 10px 10px 40% 40%; }
+.cake .candle { position: absolute; left: 50%; margin-left: -4px; bottom: 62px; width: 8px; height: 38px; background: var(--gold); border-radius: 2px; }
+.flame { position: absolute; left: 50%; margin-left: -8px; bottom: 98px; width: 16px; height: 26px; background: radial-gradient(ellipse at 50% 75%, #fff6c9 0%, #ffc94d 45%, #ff8a2a 100%); border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%; transform-origin: 50% 100%; animation: flick 0.18s infinite alternate; box-shadow: 0 0 28px 10px rgba(255, 170, 60, 0.5); transition: opacity 0.4s, transform 0.4s; }
+.flame.out { opacity: 0; transform: scale(0.2); animation: none; }
+@keyframes flick { from { transform: scale(1, 1) rotate(-3deg); } to { transform: scale(0.92, 1.08) rotate(3deg); } }
+.wish { min-height: 3.2em; font-family: var(--display); font-style: italic; font-size: clamp(1.4rem, 4vw, 2rem); color: var(--gold); margin: 0; max-width: 28ch; text-wrap: balance; }
+footer { font-family: var(--hindi); line-height: 1.9; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.5em; position: relative; z-index: 2; text-align: center; color: var(--muted); font-size: 0.9rem; padding-block: 40px 56px; border-top: 1px solid var(--line); max-width: 1120px; margin: 0 auto; }
+
+
+.song { position: relative; max-width: 720px; margin: 0 auto; text-align: center; display: grid; justify-items: center; gap: 18px; }
+.song .tag { display: inline-block; padding: 6px 14px; border: 1px dashed var(--gold); border-radius: 999px; color: var(--gold); font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; transform: rotate(-3deg); }
+.song h3 { font-family: 'Kalam', var(--hindi); font-weight: 700; font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1.1; margin: 0; color: var(--rose); }
+.lyrics { font-family: 'Kalam', var(--hindi); font-size: clamp(1.25rem, 3.6vw, 1.6rem); line-height: 1.6; display: grid; gap: 4px; margin: 0; }
+.lyrics span { display: block; transition: color 0.3s; }
+.lyrics .gap { height: 0.9em; }
+.lyrics .hook { color: var(--gold); font-weight: 700; font-size: 1.2em; }
+.song.dancing .lyrics span { animation: sway 0.5s ease-in-out infinite alternate; }
+.song.dancing .lyrics span:nth-child(even) { animation-direction: alternate-reverse; color: var(--rose); }
+@keyframes sway { from { transform: rotate(-3deg) translateX(-6px); } to { transform: rotate(3deg) translateX(6px); } }
+.btn.fun { border-color: var(--rose); }
+.btn.fun:hover { background: var(--rose); color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .song.dancing .lyrics span { animation: none; } }
+
+
+/* music button */
+.music {
+  position: fixed; z-index: 55;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1px solid var(--gold); background: rgba(30, 11, 20, 0.85);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  display: grid; place-items: center; padding: 0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+.music .bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+.music .bars i { display: block; width: 3px; height: 6px; background: var(--gold); border-radius: 2px; }
+.music.playing .bars i { animation: eq 0.9s ease-in-out infinite; }
+.music.playing .bars i:nth-child(2) { animation-delay: -0.3s; }
+.music.playing .bars i:nth-child(3) { animation-delay: -0.6s; }
+.music.playing .bars i:nth-child(4) { animation-delay: -0.15s; }
+@keyframes eq { 0%, 100% { height: 5px; } 50% { height: 18px; } }
+.music .label { position: absolute; right: 62px; white-space: nowrap; font-size: 0.78rem; color: var(--muted); background: rgba(30, 11, 20, 0.85); padding: 6px 12px; border-radius: 999px; opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+.music.hinting .label { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .music.playing .bars i { animation: none; height: 12px; } }
+
+/* lightbox */
+.lb { position: fixed; inset: 0; z-index: 70; background: rgba(10, 3, 7, 0.94); display: none; place-items: center; padding: 20px max(16px, env(safe-area-inset-left, 0px)); }
+.lb.open { display: grid; }
+.lb img { max-height: 88vh; max-height: 88dvh; max-width: 100%; width: auto; border-radius: 6px; }
+.lb button { position: absolute; top: calc(14px + env(safe-area-inset-top, 0px)); right: max(14px, env(safe-area-inset-right, 0px)); background: none; border: 1px solid var(--line); border-radius: 50%; width: 44px; height: 44px; font-size: 1.3rem; }
+
+@media (max-width: 820px) {
+  .hero { grid-template-columns: 1fr; text-align: left; }
+  .hero-photo { order: -1; width: min(78%, 340px); }
+  .wall { columns: 2; column-gap: 10px; }
+  .wall figure { margin-bottom: 10px; }
+}
+
+/* small phones */
+@media (max-width: 380px) {
+  body { font-size: 16px; }
+  .hero h2 { font-size: 2.7rem; }
+  .wall { column-gap: 8px; }
+  .wall figure { margin-bottom: 8px; }
+  .wall figcaption { font-size: 1rem; padding: 20px 10px 8px; }
+  .btn { padding: 12px 24px; }
+}
+/* phones held sideways, short screens */
+@media (max-height: 500px) and (orientation: landscape) {
+  .gate-inner { gap: 8px; }
+  .gate h1 { font-size: 2rem; }
+  .gate .hint { display: none; }
+  .gift { display: none; }
+  .hero { grid-template-columns: 1.2fr 0.8fr; }
+  .hero-photo { order: 0; width: min(100%, 260px); }
+}
+/* tablets */
+@media (min-width: 821px) and (max-width: 1100px) {
+  .wall { columns: 3; column-gap: 12px; }
+}
+/* big screens */
+@media (min-width: 1500px) {
+  main, footer { max-width: 1280px; }
+  .wall { columns: 4; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gift, .flame { animation: none; }
+  .rv { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+
+</head>
+<body>
+<div class="gate" id="gate">
+  <div class="gate-inner">
+    <p class="eyebrow">For tomorrow</p>
+    <div class="gift" aria-hidden="true"><i class="box"></i><i class="lid"></i><i class="rib-v"></i><i class="bow-l"></i><i class="bow-r"></i></div>
+    <h1 id="gate-title">I made something just for you</h1>
+    <p class="hint">Open it slowly. Every photo inside is you.</p>
+    <button class="btn" id="open" type="button">Open your gift</button>
+  </div>
+</div>
+
+<audio id="bgm" src="audio/tum-se-hi.mp3" loop preload="auto"></audio>
+<audio id="jhm" src="audio/genda-phool.mp3" loop preload="auto"></audio>
+<button class="music" id="music" type="button" aria-label="Pause the song" hidden><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="label" id="music-label" aria-hidden="true">Tum Se Hi</span></button>
+
+<canvas id="petals" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<main id="main">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Tomorrow is all yours</p>
+      <h2>Happy <em>Birthday</em><span id="her-name"></span></h2>
+      <p class="lead">I collected every photo of you that made me smile. It turned out to be most of them.</p>
+      <a class="scroll-cue" href="#letter">Read on &darr;</a>
+    </div>
+    <div class="hero-photo"><img src="img/hero.jpg" alt="Her in a pink embroidered kurta, smiling down, with mehndi on her hands"></div>
+  </section>
+
+  <section id="letter">
+    <div class="letter rv">
+      <p class="eyebrow">कुछ दिल की बातें</p>
+      <p class="greet">मेरी मिमू के नाम</p>
+      <p class="hi">कभी ख्वाबों में तुम्हें ढूँढता था,<br>हर मोड़ पे तुम्हारा पता पूछता था।<br>आज वही ख्वाब हक़ीक़त है, मिमू,<br>जिसे जागते ही मैं खो देता था।</p>
+      <p class="hi">तुम्हारी आँखें, वो मोहक शराब,<br>तुम्हारी हँसी, मेरे हर सवाल का जवाब।<br>तुम्हारी जुल्फ़ों के साये तले,<br>पूरा हो जाता है हर अधूरा ख्वाब।</p>
+      <p class="hi">दिल की गलियों में आज रौनक है,<br>हर दीवार पे बस तुम्हारा नाम लिखा है।<br>उम्मीदों का जो दिया जलाया था कभी,<br>आज वो तुम्हारी मुस्कान से जगमगाया है।</p>
+      <p class="hi">तुम हो तो ये दुनिया अपनी लगती है,<br>तुम हो तो हर साँस में ज़िंदगी बसती है।<br>अमर होकर भी क्या करूँगा तुम्हारे बिना,<br>तुम्हारे संग एक पल भी पूरी सदी लगती है।</p>
+      <p class="hi">मोमबत्तियाँ आज जितनी भी जलें,<br>हर लौ में मेरी एक दुआ पले।<br>जन्मदिन मुबारक हो, मेरी परी,<br>ये साथ हमारा हर जन्म चले।</p>
+      <p class="sig">हमेशा तुम्हारा,<br>विनय</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="chapter-head rv"><h3>Every colour suits you</h3><span>Every look, one smile</span></div>
+    <div class="wall" data-wall>
+      <figure class="rv"><button type="button"><img src="img/lehenga.jpg" alt="In a black sequin lehenga" loading="lazy"></button><figcaption>Midnight sparkle</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/bridal.jpg" alt="In red and gold with a maang tikka, smiling" loading="lazy"></button><figcaption>All dressed up</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/floral.jpg" alt="In a pink floral top, cap and sunglasses" loading="lazy"></button><figcaption>Cool girl</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/roses.jpg" alt="Holding red roses in a teal dress" loading="lazy"></button><figcaption>Roses for the rose</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/red-white.jpg" alt="In a white saree with a red blouse and gold jewellery" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/pavilion.jpg" alt="In yellow with a pink dupatta under a pavilion" loading="lazy"></button><figcaption>Haldi-day glow</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/stripes.jpg" alt="Close-up in a yellow striped shirt" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/red-profile.jpg" alt="Side profile in red against green trees" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/bridal-balcony.jpg" alt="In red and black with gold jewellery on a balcony" loading="lazy"></button><figcaption>Queen</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="chapter-head rv"><h3>The green saree day</h3><span>A museum, a mural, a very big hat</span></div>
+    <div class="wall" data-wall>
+      <figure class="rv"><button type="button"><img src="img/museum-hat.jpg" alt="Wearing a bamboo hat at the museum" loading="lazy"></button><figcaption>The hat</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/frame.jpg" alt="Looking up at a framed portrait" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/wall.jpg" alt="Sitting by a painted wall" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/mural.jpg" alt="Posing in front of a dancer mural" loading="lazy"></button><figcaption>Dance with the mural</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/road.jpg" alt="Sitting by the roadside, looking away" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/stone.jpg" alt="Turning an old stone grinder" loading="lazy"></button><figcaption>Hard at work</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="chapter-head rv"><h3>Wherever we wander</h3><span>Grass, sea and forest gates</span></div>
+    <div class="wall" data-wall>
+      <figure class="rv"><button type="button"><img src="img/park.jpg" alt="Sitting on the grass in a park" loading="lazy"></button><figcaption>Lazy Sunday</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/beach1.jpg" alt="Walking in the waves at the beach" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/beach2.jpg" alt="Hair in the sea breeze, sunglasses on" loading="lazy"></button><figcaption>Sea breeze</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/teal-beach.jpg" alt="In a teal dress and sun hat on the beach" loading="lazy"></button><figcaption>Sun hat season</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/teal-wave.jpg" alt="Arm stretched out by the waves" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/teal-walk.jpg" alt="Walking along the shore" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/church.jpg" alt="Selfie inside a church" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/bamboo.jpg" alt="Standing at a green bamboo gate" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/rock.jpg" alt="Sitting on a rock bench in a polka dot dress" loading="lazy"></button><figcaption>Polka dots</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="chapter-head rv"><h3>The quiet ones</h3><span>My favourites, if I am honest</span></div>
+    <div class="wall" data-wall>
+      <figure class="rv"><button type="button"><img src="img/black-saree.jpg" alt="Leaning on a marble pillar in a black saree" loading="lazy"></button></figure>
+      <figure class="rv"><button type="button"><img src="img/temple.jpg" alt="Sitting on temple steps in a black saree" loading="lazy"></button><figcaption>That look</figcaption></figure>
+      <figure class="rv"><button type="button"><img src="img/white-saree.jpg" alt="In a white and gold saree on a busy street" loading="lazy"></button></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="song rv" id="song">
+      <span class="tag">Our song</span>
+      <h3>Lukk Chipp Na Javo Ji</h3>
+      <p class="lyrics">
+        <span>Lukk Chipp Na Javo Ji,</span>
+        <span>Manney Deed Karavo Ji</span>
+        <span>Rae Kyun Tarsavey Ho,</span>
+        <span>Manney Sakal Dikhavo Ji</span>
+        <span>Thaari Saraarat Sabb</span>
+        <span>Jaanu Main Chaudhari</span>
+        <span>Mahaarey Se Levo Na</span>
+        <span>Pangaaji Main Kehan Lagi</span>
+        <span class="gap"></span>
+        <span>Mahaarey Hivdhey Mein Jaagi Dhaunkani</span>
+        <span>Rae Chandaa Main Thaari Chandni</span>
+        <span>Maney Daaman Mein Baandhi Khusi</span>
+        <span class="hook">Rae Jhoom, Jhoom, Jhoom Jhoom Baa Jhoom!</span>
+      </p>
+      <button class="btn fun" id="jhoom" type="button">Jhoom!</button>
+    </div>
+  </section>
+
+  <section class="finale">
+    <img class="us rv" src="img/us.jpg" alt="The two of us, smiling, with a temple gateway behind" loading="lazy">
+    <p class="quote rv">&ldquo;The smallest chance of a perfect life with you is infinitely better than an immortal one without you.&rdquo;</p>
+    <h3 class="rv">Make a wish, then blow out the candle</h3>
+    <div class="cake" aria-hidden="true"><i class="candle"></i><i class="flame" id="flame"></i><i class="tier"></i></div>
+    <button class="btn" id="blow" type="button">Blow it out</button>
+    <p class="wish" id="wish" aria-live="polite"></p>
+  </section>
+</main>
+
+<footer><span class="f-line">तुम्हारे लिए, ढेर सारे प्यार से बनाया।</span> <span id="from"></span></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo"><button type="button" id="lb-close" aria-label="Close photo">&times;</button><img id="lb-img" alt=""></div>
+
+<script>
+// Edit these two lines, then republish.
+var HER_NAME = 'Mimu';
+var FROM_NAME = 'विनय';
+
+var $ = function (s) { return document.querySelector(s); };
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (HER_NAME) {
+  $('#her-name').textContent = ', ' + HER_NAME;
+  $('#gate-title').textContent = HER_NAME + ', I made something just for you';
+  document.querySelector('.gate .eyebrow').textContent = 'For Pooja';
+}
+if (FROM_NAME) $('#from').textContent = 'हमेशा तुम्हारा, ' + FROM_NAME + '।';
+document.body.classList.add('locked');
+
+/* confetti */
+var cc = $('#confetti'), cx = cc.getContext('2d'), bits = [], raf = 0;
+var DPR = Math.min(window.devicePixelRatio || 1, 2);
+function fit(c) { c.width = innerWidth * DPR; c.height = innerHeight * DPR; }
+fit(cc); fit($('#petals'));
+addEventListener('resize', function () { fit(cc); fit($('#petals')); });
+addEventListener('orientationchange', function () { setTimeout(function () { fit(cc); fit($('#petals')); }, 250); });
+var COLORS = ['#e9b24c', '#e0587c', '#f7ebe1', '#ff8a2a', '#b83a62'];
+function burst(n, x, y) {
+  if (reduce) return;
+  for (var i = 0; i < n; i++) {
+    var a = Math.random() * Math.PI * 2, s = 4 + Math.random() * 9;
+    bits.push({ x: x * DPR, y: y * DPR, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 6, r: Math.random() * 6, vr: Math.random() * 0.3 - 0.15, w: 6 + Math.random() * 6, h: 3 + Math.random() * 5, c: COLORS[i % COLORS.length], life: 150 + Math.random() * 80 });
+  }
+  if (!raf) tick();
+}
+function tick() {
+  cx.clearRect(0, 0, cc.width, cc.height);
+  bits = bits.filter(function (b) { return b.life > 0 && b.y < cc.height + 40; });
+  bits.forEach(function (b) {
+    b.vy += 0.28; b.vx *= 0.99; b.x += b.vx * DPR; b.y += b.vy * DPR; b.r += b.vr; b.life--;
+    cx.save(); cx.translate(b.x, b.y); cx.rotate(b.r); cx.fillStyle = b.c; cx.globalAlpha = Math.min(1, b.life / 40);
+    cx.fillRect(-b.w / 2, -b.h / 2, b.w * DPR, b.h * DPR); cx.restore();
+  });
+  raf = bits.length ? requestAnimationFrame(tick) : 0;
+}
+
+/* drifting petals */
+var pc = $('#petals'), px = pc.getContext('2d'), petals = [];
+for (var i = 0; i < 26; i++) petals.push({ x: Math.random(), y: Math.random(), s: 5 + Math.random() * 9, v: 0.0007 + Math.random() * 0.0011, d: Math.random() * 6, c: i % 3 ? 'rgba(224,88,124,0.5)' : 'rgba(233,178,76,0.45)' });
+function drift(t) {
+  px.clearRect(0, 0, pc.width, pc.height);
+  petals.forEach(function (p) {
+    p.y += p.v; if (p.y > 1.05) { p.y = -0.05; p.x = Math.random(); }
+    var x = (p.x + Math.sin(t / 1800 + p.d) * 0.03) * pc.width, y = p.y * pc.height, s = p.s * DPR;
+    px.save(); px.translate(x, y); px.rotate(Math.sin(t / 1200 + p.d)); px.fillStyle = p.c;
+    px.beginPath(); px.ellipse(0, 0, s, s * 0.55, 0, 0, Math.PI * 2); px.fill(); px.restore();
+  });
+  requestAnimationFrame(drift);
+}
+if (!reduce) requestAnimationFrame(drift);
+
+/* background song (Tum Se Hi) and the Jhoom song (Sasural Genda Phool) */
+var bgm = $('#bgm'), jhm = $('#jhm'), mbtn = $('#music'), cur = bgm, fadeT = 0;
+function setPlaying() {
+  var on = !cur.paused;
+  mbtn.classList.toggle('playing', on);
+  mbtn.setAttribute('aria-label', on ? 'Pause the song' : 'Play the song');
+}
+function vol(a, v) { try { a.volume = v; } catch (e) {} }
+function fade(a, to, ms, done) {
+  clearInterval(fadeT);
+  var from = a.volume, steps = Math.max(1, Math.round(ms / 50)), i = 0;
+  fadeT = setInterval(function () {
+    i++; vol(a, from + (to - from) * i / steps);
+    if (i >= steps) { clearInterval(fadeT); if (done) done(); }
+  }, 50);
+}
+function play(a, then) {
+  var pr = a.play();
+  if (pr && pr.then) pr.then(function () { if (then) then(); }).catch(function () {}); else if (then) then();
+}
+function hint(text) {
+  $('#music-label').textContent = text;
+  mbtn.classList.add('hinting');
+  clearTimeout(hint.t); hint.t = setTimeout(function () { mbtn.classList.remove('hinting'); }, 3500);
+}
+function startSong() {
+  mbtn.hidden = false;
+  vol(bgm, 0);
+  play(bgm, function () { fade(bgm, 0.8, 2000); });
+  hint('Tum Se Hi');
+}
+mbtn.addEventListener('click', function () {
+  if (cur.paused) { vol(cur, 0.8); play(cur); } else cur.pause();
+});
+[bgm, jhm].forEach(function (a) { a.addEventListener('play', setPlaying); a.addEventListener('pause', setPlaying); });
+var bgWasPlaying = false;
+function jhoomOn() {
+  bgWasPlaying = !bgm.paused;
+  cur = jhm;
+  fade(bgm, 0, 500, function () { bgm.pause(); });
+  try { jhm.currentTime = 0; } catch (e) {}
+  vol(jhm, 0.9); play(jhm);
+  hint('Sasural Genda Phool');
+}
+function jhoomOff() {
+  jhm.pause();
+  cur = bgm;
+  if (bgWasPlaying) { vol(bgm, 0); play(bgm, function () { fade(bgm, 0.8, 1200); }); hint('Tum Se Hi'); }
+  setPlaying();
+}
+
+/* gate */
+$('#open').addEventListener('click', function () {
+  startSong();
+  $('#gate').classList.add('gone');
+  document.body.classList.remove('locked');
+  scrollTo(0, 0);
+  burst(160, innerWidth / 2, innerHeight * 0.55);
+  setTimeout(function () { burst(90, innerWidth * 0.25, innerHeight * 0.4); burst(90, innerWidth * 0.75, innerHeight * 0.4); }, 350);
+});
+
+/* reveal on scroll */
+var els = document.querySelectorAll('.rv');
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+} else els.forEach(function (el) { el.classList.add('in'); });
+
+/* lightbox */
+var lb = $('#lb');
+document.querySelectorAll('[data-wall] button').forEach(function (b) {
+  b.addEventListener('click', function () { var im = b.querySelector('img'); $('#lb-img').src = im.src; $('#lb-img').alt = im.alt; lb.classList.add('open'); });
+});
+function closeLb() { lb.classList.remove('open'); }
+lb.addEventListener('click', closeLb);
+addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLb(); });
+
+
+/* jhoom */
+$('#jhoom').addEventListener('click', function () {
+  var sg = $('#song'), b = $('#jhoom');
+  var on = sg.classList.toggle('dancing');
+  b.textContent = on ? 'Bas, ruk jao' : 'Jhoom!';
+  if (on) jhoomOn(); else jhoomOff();
+  if (on) { var r = b.getBoundingClientRect(); burst(140, r.left + r.width / 2, r.top); }
+});
+
+/* candle */
+var wishes = ['हर दुआ तुम्हारी कुबूल हो, मिमू,\nहर ख्वाब तुम्हारा हक़ीक़त बने।', 'तुम्हारी मुस्कान यूँ ही सलामत रहे,\nमेरा संसार यूँ ही रौशन रहे।', 'जितनी लौ बुझीं, उतनी दुआएँ जगीं,\nसब की सब बस तुम्हारे नाम लगीं।'];
+var lit = true;
+$('#blow').addEventListener('click', function () {
+  var f = $('#flame'), w = $('#wish'), b = $('#blow');
+  if (lit) {
+    lit = false; f.classList.add('out'); b.textContent = 'Light it again';
+    w.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+    var r = f.getBoundingClientRect(); burst(220, r.left + r.width / 2, r.top);
+  } else { lit = true; f.classList.remove('out'); w.textContent = ''; b.textContent = 'Blow it out'; }
+});
+</script>
+
+</body>
+</html>
